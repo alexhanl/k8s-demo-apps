@@ -1,0 +1,54 @@
+# mytest.yaml
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: mytest-ingress
+spec:
+  rules:
+  - host: mytest.demo.corp.tanzu
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: mytest
+            port:
+              number: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mytest
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 8080
+  selector:
+    app: mytest
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mytest
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: mytest
+  template:
+    metadata:
+      labels:
+        app: mytest
+    spec:
+      containers:
+      - name: mytest
+        image: ghcr.io/alexhanl/testware:1.0.0
+        ports:
+        - containerPort: 8080
+
