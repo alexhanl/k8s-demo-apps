@@ -2,49 +2,51 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: hello-kubernetes-ingress
+  name: myweb-ingress
 spec:
   rules:
-  - host: hello-kubernetes.demo.corp.tanzu
+  - host: myweb.demo.corp.tanzu
     http:
       paths:
       - pathType: Prefix
         path: "/"
         backend:
           service:
-            name: hello-kubernetes
+            name: myweb
             port:
               number: 80
+
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: hello-kubernetes
+  name: myweb
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
   - port: 80
     targetPort: 8080
   selector:
-    app: hello-kubernetes
+    app: myweb
+
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hello-kubernetes
+  name: myweb
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: hello-kubernetes
+      app: myweb
   template:
     metadata:
       labels:
-        app: hello-kubernetes
+        app: myweb
     spec:
       containers:
-      - name: hello-kubernetes
-        image: ghcr.io/alexhanl/hello-kubernetes:1.5
-        imagePullPolicy: IfNotPresent
+      - name: myweb
+        image: ghcr.io/alexhanl/my-web-demo:1.0.0
         ports:
         - containerPort: 8080
+
