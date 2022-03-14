@@ -6,6 +6,10 @@ metadata:
   labels:
     app: kuard
 spec:
+  tls:
+  - hosts:
+      - kuard.demo.corp.tanzu
+    secretName: kuard-tls-secret
   rules:
   - host: kuard.demo.corp.tanzu
     http:
