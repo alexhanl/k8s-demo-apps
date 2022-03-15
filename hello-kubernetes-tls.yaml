@@ -4,6 +4,10 @@ kind: Ingress
 metadata:
   name: hello-kubernetes-ingress
 spec:
+  tls:
+  - hosts:
+      - hello-kubernetes.demo.corp.tanzu
+    secretName: hello-kubernetes-tls-secret
   rules:
   - host: hello-kubernetes.demo.corp.tanzu
     http:
