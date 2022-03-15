@@ -1,0 +1,42 @@
+apiVersion: ako.vmware.com/v1alpha1
+kind: HostRule
+metadata:
+  name: kuard-hostrule
+spec:
+  virtualhost:
+    fqdn: kuard.demo.corp.tanzu # mandatory
+    fqdnType: Exact
+    enableVirtualHost: true
+
+    tls: # optional
+      sslKeyCertificate:
+        name: demo-corp-tanzu-wildcard-cert
+        type: ref
+      sslProfile: System-Standard-PFS
+      termination: edge
+    # gslb:
+    #   fqdn: foo.com
+    # httpPolicy: 
+    #   policySets:
+    #   - avi-secure-policy-ref
+    #   overwrite: false
+    # datascripts:
+    # - avi-datascript-redirect-app1
+    # wafPolicy: avi-waf-policy
+    applicationProfile: System-Secure-HTTP
+    analyticsProfile: System-Analytics-Profile
+    # errorPageProfile: demo-error-page-profile
+    analyticsPolicy: # optional
+      fullClientLogs:
+        enabled: true
+        throttle: HIGH
+      logAllHeaders: true
+    # tcpSettings:
+    #   listeners:
+    #   - port: 8081
+    #   - port: 6443
+    #     enableSSL: true
+    #   loadBalancerIP: 10.10.10.1
+    # aliases: # optional
+    # -  bar.com
+    # -  baz.com
