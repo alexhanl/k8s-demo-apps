@@ -11,10 +11,13 @@ This is a collection of manifests of various k8s demo applications
 
 - `kubectl create secret tls kuard-tls-secret --key kuard.demo.corp.tanzu.key --cert kuard.demo.corp.tanzu.crt`
 
+- `curl -k --silent https://kuard.demo.corp.tanzu/ 2>&1 | grep hostname`
+
 ## my-web-demo
 - http://myweb.demo.corp.tanzu/slowresponse?waitFor=10
 - http://myweb.demo.corp.tanzu/hello?myName=alex
 - http://myweb.demo.corp.tanzu/url-not-exist
+- http://myweb.demo.corp.tanzu/slowresponse?waitFor=abc
 
 
 ## simple-web-demo

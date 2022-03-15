@@ -1,0 +1,34 @@
+apiVersion: ako.vmware.com/v1alpha1
+kind: HTTPRule
+metadata:
+   name: kuard-httprule
+spec:
+  fqdn: kuard.demo.corp.tanzu
+  paths:
+  - target: /
+    # healthMonitors:
+    # - my-health-monitor-1
+    # - my-health-monitor-2
+    loadBalancerPolicy:
+      algorithm: LB_ALGORITHM_CONSISTENT_HASH
+      hash: LB_ALGORITHM_CONSISTENT_HASH_SOURCE_IP_ADDRESS
+    # tls: ## This is a re-encrypt to pool
+    #   type: reencrypt # Mandatory [re-encrypt]
+    #   sslProfile: avi-ssl-profile
+    #   destinationCA:  |-
+    #     -----BEGIN CERTIFICATE-----
+    #     [...]
+    #     -----END CERTIFICATE-----
+
+
+# LB_ALGORITHM_CONSISTENT_HASH
+# LB_ALGORITHM_CORE_AFFINITY
+# LB_ALGORITHM_FASTEST_RESPONSE
+# LB_ALGORITHM_FEWEST_SERVERS
+# LB_ALGORITHM_FEWEST_TASKS
+# LB_ALGORITHM_LEAST_CONNECTIONS
+# LB_ALGORITHM_LEAST_LOAD
+# LB_ALGORITHM_NEAREST_SERVER
+# LB_ALGORITHM_RANDOM
+# LB_ALGORITHM_ROUND_ROBIN
+# LB_ALGORITHM_TOPOLOGY
