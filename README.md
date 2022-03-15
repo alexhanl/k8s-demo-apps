@@ -10,7 +10,7 @@ This demostrates using kubernetes standard way to enable HTTPS, i.e. the develop
 ## Kuard
 This demostrates the AVI hostrule and httprule
 - `openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout demo.corp.tanzu.key -out demo.corp.tanzu.crt -subj "/CN=*.demo.corp.tanzu/O=VMware/"`
-- Load the certificate/key to the avi controller, name it demo-corp-tanzu-wildcard-cert 
+- Load the certificate/key to the avi controller, name it `demo-corp-tanzu-wildcard-cert`
 - `curl -k --silent https://kuard.demo.corp.tanzu/ 2>&1 | grep hostname`
 
 ## my-web-demo
