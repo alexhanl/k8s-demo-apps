@@ -8,10 +8,16 @@ This demostrates using kubernetes standard way to enable HTTPS, i.e. the develop
 - `kubectl create secret tls hello-kubernetes-tls-secret --key hello-kubernetes.demo.corp.tanzu.key --cert hello-kubernetes.demo.corp.tanzu.crt`
 
 ## Kuard
-This demostrates the AVI hostrule and httprule
+This demostrates (1) the AVI hostrule and httprule and (2) the contour httpproxy
 - `openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout demo.corp.tanzu.key -out demo.corp.tanzu.crt -subj "/CN=*.demo.corp.tanzu/O=VMware/"`
+
+### the AVI hostrule and httprule
 - Load the certificate/key to the avi controller, name it `demo-corp-tanzu-wildcard-cert`
 - `curl -k --silent https://kuard.demo.corp.tanzu/ 2>&1 | grep hostname`
+
+### the contour httpproxy
+- `kubectl create secret tls demo-corp-tanzu-wildcard-tls-secret --key demo.corp.tanzu.key --cert demo.corp.tanzu.crt`
+
 
 ## my-web-demo
 This is a home grown sample application to demonstrate the various unhealth http responses. 

@@ -1,0 +1,13 @@
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  name: kuard-contour-httpproxy
+spec:
+  virtualhost:
+    fqdn: kuard.demo.corp.tanzu
+    tls:
+      secretName: demo-corp-tanzu-wildcard-tls-secret
+  routes:
+    - services:
+        - name: kuard
+          port: 80
