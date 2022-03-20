@@ -19,7 +19,7 @@ metadata:
   labels:
     app: wordpress
 spec:
-  storageClassName: k8s-policy
+  # storageClassName: k8s-policy
   accessModes:
     - ReadWriteOnce
   resources:
@@ -46,7 +46,7 @@ spec:
         tier: mysql
     spec:
       containers:
-      - image: mysql:5.6
+      - image: ghcr.io/alexhanl/mysql:5.6
         name: mysql
         env:
         - name: MYSQL_ROOT_PASSWORD
