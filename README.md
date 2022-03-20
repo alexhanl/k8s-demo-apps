@@ -4,7 +4,10 @@ This is a collection of manifests of various k8s demo applications
 ## Hello-Kubernetes
 This demostrates using kubernetes standard way to enable HTTPS, i.e. the developer creates the secrets and ingress uses the secret.  AVI will load the key and certs from the secret. 
 - https://hello-kubernetes.demo.corp.tanzu
-- `openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout hello-kubernetes.demo.corp.tanzu.key -out hello-kubernetes.demo.corp.tanzu.crt -subj "/CN=hello-kubernetes.demo.corp.tanzu/O=VMware/"`
+- 
+```bash
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout hello-kubernetes.demo.corp.tanzu.key -out hello-kubernetes.demo.corp.tanzu.crt -subj "/CN=hello-kubernetes.demo.corp.tanzu/O=VMware/"
+```
 - `kubectl create secret tls hello-kubernetes-tls-secret --key hello-kubernetes.demo.corp.tanzu.key --cert hello-kubernetes.demo.corp.tanzu.crt`
 
 ## Kuard
