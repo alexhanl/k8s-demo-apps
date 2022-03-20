@@ -7,7 +7,33 @@ spec:
     fqdn: kuard.demo.corp.tanzu
     tls:
       secretName: demo-corp-tanzu-wildcard-tls-secret
+    corsPolicy:
+        allowCredentials: true
+        allowOrigin:
+          - "https://hello-kubernetes.demo.corp.tanzu"
+          # - "*" # allows any origin
+        allowMethods:
+          - GET
+          - POST
+          - OPTIONS
+        allowHeaders:
+          - authorization
+          - cache-control
+        exposeHeaders:
+          - Content-Length
+          - Content-Range
+        maxAge: "10m"
   routes:
     - services:
+        - name: kuard
+          port: 80
+      requestHeadersPolicy:
+        set:
+        - name: X-Foo
+          value: bar
+    - conditions:
+      - prefix: /fs
+      permitInsecure: true
+      services:
         - name: kuard
           port: 80

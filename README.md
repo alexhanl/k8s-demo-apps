@@ -17,6 +17,9 @@ This demostrates (1) the AVI hostrule and httprule and (2) the contour httpproxy
 
 ### the contour httpproxy
 - `kubectl create secret tls demo-corp-tanzu-wildcard-tls-secret --key demo.corp.tanzu.key --cert demo.corp.tanzu.crt`
+- features to demos
+    - TLS:
+    - CORS: reference：https://www.ruanyifeng.com/blog/2016/04/cors.html, https://www.youtube.com/watch?v=FF6zra7b7gM
 
 
 ## my-web-demo
