@@ -44,7 +44,7 @@ spec:
     spec:
       containers:
       - name: httpbin
-        image: ghcr.io/alexhanl/httpbin:1.5
+        image: ghcr.io/alexhanl/httpbin
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80
