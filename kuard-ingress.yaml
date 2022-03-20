@@ -1,0 +1,19 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: kuard
+  labels:
+    app: kuard
+spec:
+  rules:
+  - host: kuard.demo.corp.tanzu
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: kuard
+            port:
+              number: 80
