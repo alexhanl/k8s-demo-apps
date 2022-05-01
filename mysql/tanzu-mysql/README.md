@@ -18,8 +18,6 @@ helm chart export registry.tanzu.vmware.com/tanzu-mysql-for-kubernetes/tanzu-mys
 
 kubectl create namespace tanzu-mysql-for-kubernetes-system
 
-export DOCKER_PASSWORD=
-
 kubectl create secret docker-registry tanzu-image-registry \
 --docker-server=https://registry.tanzu.vmware.com/ \
 --docker-username="liangh@vmware.com" \
