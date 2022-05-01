@@ -23,7 +23,7 @@ export DOCKER_PASSWORD=
 kubectl create secret docker-registry tanzu-image-registry \
 --docker-server=https://registry.tanzu.vmware.com/ \
 --docker-username="liangh@vmware.com" \
---docker-password="VMware1!" \
+--docker-password="" \
 --namespace tanzu-mysql-for-kubernetes-system
 
 helm install --wait my-mysql-operator tanzu-sql-with-mysql-operator/
