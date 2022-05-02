@@ -1,0 +1,25 @@
+---
+apiVersion: with.sql.tanzu.vmware.com/v1
+kind: MySQLBackupLocation
+metadata:
+  name: backuplocation-minio
+spec:
+  storage:
+    s3:
+      bucket: "mysql-backup"
+      bucketPath: "/"
+      # region: "us-east-1"
+      forcePathStyle: true
+      endpoint: "http://truenas.corp.tanzu:9000"
+      secret:
+        name: minio-cred
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: minio-cred
+stringData:
+  # Credentials
+  accessKeyId: "minio"
+  secretAccessKey: "minio123"
+---
