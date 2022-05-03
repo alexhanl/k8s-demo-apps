@@ -47,6 +47,15 @@ kubectl apply -f hr-dev-mysql.yaml -n hr-dev
 kubectl exec --stdin --tty pod/mysql-hr-dev-0 -c mysql -- /bin/bash
 
 mysql -uroot -p$(cat $MYSQL_ROOT_PASSWORD_FILE)
+verify the instance is primary: 
+mysql> SELECT MEMBER_HOST, MEMBER_ROLE FROM performance_schema.replication_group_members;
++-------------------------+-------------+
+| MEMBER_HOST             | MEMBER_ROLE |
++-------------------------+-------------+
+| remote1.example.com     | PRIMARY     |
+| remote2.example.com     | SECONDARY   |
+| remote3.example.com     | SECONDARY   |
++-------------------------+-------------+
 
 #### Create account for application
 ```
