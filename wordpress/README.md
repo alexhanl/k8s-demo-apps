@@ -4,8 +4,8 @@
 kubectl create namespace wordpress
 kubectl config set-context --current --namespace=wordpress
 
-export TANZU_REGISTRY_USER=
-export TANZU_REGISTRY_PASSWORD=
+export TANZU_REGISTRY_USER=liangh@vmware.com
+export TANZU_REGISTRY_PASSWORD=VMware1!
 
 kubectl create secret \
 docker-registry tanzu-image-registry  \
@@ -37,7 +37,7 @@ mysql -h wordpress-mysql -u wordpress -p
 
 ## WordPress Front single instance deployment
 ### Create secret for MySQL password (wordpress)
-kubectl create secret generic mysql-pass --from-literal=password='d29yZHByZXNz'
+kubectl create secret generic mysql-pass --from-literal=password='wordpress'
 
 ### Create K8s resources for WordPress front
 kubectl apply -f wordpress-deployment.yaml
