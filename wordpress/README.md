@@ -47,3 +47,71 @@ kubectl apply -f wordpress-deployment.yaml
 kubectl get ingress
 visit http://wordpress.demo.corp.tanzu
 
+
+
+
+# Deploy Wordpress with bitnami helm and MySQL(TLS)
+
+Reference: https://docs.vmware.com/en/VMware-Tanzu-SQL-with-MySQL-for-Kubernetes/1.3/tanzu-mysql-k8s/GUID-connecting-apps.html#configure-your-app-with-mysql-user-and-connectivity-information
+
+kubectl create namespace wordpress2
+kubectl config set-context --current --namespace=wordpress2
+
+``` bash
+cat << EOF | kubectl apply -f -
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: selfsigned-issuer
+spec:
+  selfSigned: {}
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: ca-certificate
+spec:
+  isCA: true
+  issuerRef:
+    name: selfsigned-issuer
+  secretName: ca-secret
+  commonName: ca-cert
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: tls-issuer
+spec:
+  ca:
+    secretName: ca-secret
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: tls-certificate
+spec:
+  isCA: false
+  dnsNames:
+    - mysql-sample.wordpress2 # See note after the code excerpt
+  secretName: mysql-tls-secret
+  issuerRef:
+    name: tls-issuer
+EOF
+```
+
+``` bash
+cat << EOF | kubectl apply -f -
+apiVersion: with.sql.tanzu.vmware.com/v1
+kind: MySQL
+metadata:
+  name: mysql-sample
+spec:
+ imagePullSecretName: tanzu-image-registry
+ serviceType: ClusterIP
+ tls:
+   secret:
+     name: mysql-tls-secret
+EOF
+```
+
