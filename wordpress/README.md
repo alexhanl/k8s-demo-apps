@@ -4,8 +4,8 @@
 kubectl create namespace wordpress
 kubectl config set-context --current --namespace=wordpress
 
-export TANZU_REGISTRY_USER=liangh@vmware.com
-export TANZU_REGISTRY_PASSWORD=VMware1!
+export TANZU_REGISTRY_USER=
+export TANZU_REGISTRY_PASSWORD=
 
 kubectl create secret \
 docker-registry tanzu-image-registry  \
