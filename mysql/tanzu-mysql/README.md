@@ -44,7 +44,7 @@ kubectl apply -f hr-dev-mysql.yaml -n hr-dev
 ### First login via root
 只能在 primary container 本地，使用 root 登录
 
-kubectl exec --stdin --tty pod/mysql-hr-dev-0 -c mysql -- /bin/bash
+kubectl exec --stdin --tty pod/wordpress-mysql-0 -c mysql -- /bin/bash
 
 mysql -uroot -p$(cat $MYSQL_ROOT_PASSWORD_FILE)
 verify the instance is primary: 
@@ -56,6 +56,16 @@ mysql> SELECT MEMBER_HOST, MEMBER_ROLE FROM performance_schema.replication_group
 | remote2.example.com     | SECONDARY   |
 | remote3.example.com     | SECONDARY   |
 +-------------------------+-------------+
+
+
+mysql> SELECT * FROM performance_schema.session_status
+       WHERE VARIABLE_NAME IN ('Ssl_version','Ssl_cipher');
++---------------+---------------------------+
+| VARIABLE_NAME | VARIABLE_VALUE            |
++---------------+---------------------------+
+| Ssl_cipher    | DHE-RSA-AES128-GCM-SHA256 |
+| Ssl_version   | TLSv1.2                   |
++---------------+---------------------------+
 
 #### Create account for application
 ```
