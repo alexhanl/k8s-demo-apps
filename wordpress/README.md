@@ -42,5 +42,8 @@ kubectl create secret generic mysql-pass --from-literal=password='wordpress'
 ### Create K8s resources for WordPress front
 kubectl apply -f wordpress-deployment.yaml
 
-kubectl get svc
+
+### Visit wordpress
+kubectl get ingress
+visit http://wordpress.demo.corp.tanzu
 
